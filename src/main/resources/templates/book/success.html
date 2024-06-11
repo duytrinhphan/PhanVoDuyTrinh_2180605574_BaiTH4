@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <th:block th:replace="~{layout::link-css}"></th:block>
+    <th:block th:replace="~{layout::custom-css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container text-center">
+    <h2>Payment Successful!</h2>
+    <p class="lead">Thank you for your purchase.</p>
+    <p>You will be redirected to the book list in 5 seconds...</p>
+</div>
+<th:block th:replace="~{layout::footer}"></th:block>
+<script>
+    setTimeout(function() {
+        window.location.href = "/books";
+    }, 5000);
+</script>
+</body>
+</html>

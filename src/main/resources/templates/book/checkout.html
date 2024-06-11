@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <th:block th:replace="~{layout::link-css}"></th:block>
+    <th:block th:replace="~{layout::custom-css}"></th:block>
+</head>
+<body>
+<th:block th:replace="~{layout::header}"></th:block>
+<div class="container">
+    <h2>Checkout</h2>
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
+    <form th:action="@{/cart/checkout}" method="post">
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="phone" class="form-label">Phone Number</label>
+            <input type="text" class="form-control" id="phone" name="phone" required>
+        </div>
+        <h3>Invoice</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Book ID</th>
+                <th scope="col">Book Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Price</th>
+                <th scope="col">Total</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${cart.cartItems}">
+                <td th:text="${item.getBookId()}"></td>
+                <td th:text="${item.getBookName()}"></td>
+                <td th:text="${item.getQuantity()}"></td>
+                <td th:text="${item.getPrice()}"></td>
+                <td th:text="${item.getPrice() * item.getQuantity()}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <h3>Total: <span th:text="${totalPrice}"></span></h3>
+        <div class="mb-3">
+            <label for="payment" class="form-label">Payment Method</label>
+            <select class="form-select" id="payment" name="payment" required>
+                <option value="cash">Cash</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Pay</button>
+    </form>
+</div>
+<th:block th:replace="~{layout::footer}"></th:block>
+</body>
+</html>
